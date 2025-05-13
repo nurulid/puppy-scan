@@ -63,6 +63,10 @@ flutter:
     - assets/puppy_bg.jpg
     - assets/slider_example.png
     - assets/google_icon.png
+    - assets/camera_circle.png
+    - assets/magic_circle.png
+    - assets/share_circle.png
+    - assets/line_vector.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
