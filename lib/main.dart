@@ -7,7 +7,8 @@ import 'package:puppy_scan/screens/splash/splash.dart';
 void main() {
   runApp(
     const MaterialApp(
-      home: Paywall(),
+      home: Home(),
+      // home: Paywall(),
       // home: SliderSc(),
       // home: Splash(),
     ),

@@ -44,26 +44,23 @@ class Splash extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(bottom: 20),
-                    child: Material(
-                      color: Colors.white,
-                      shape: const CircleBorder(),
-                      elevation: 4,
-                      child: InkWell(
-                        customBorder: const CircleBorder(),
-                        onTap: () {},
-                        child: const SizedBox(
-                          width: 160,
-                          height: 160,
-                          child: Center(
-                            child: Text(
-                              'Get Started',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
+                    margin: const EdgeInsets.only(bottom: 32),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: () => print('Get Started pressed'),
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(160, 160),
+                        shape: const CircleBorder(),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Get Started',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -81,8 +78,9 @@ class Splash extends StatelessWidget {
                         ),
                         children: [
                           const TextSpan(
-                            text: "By tapping 'Get Started' you agree to our ",
+                            text: "By tapping 'Get Started' you agree to our",
                           ),
+                          WidgetSpan(child: SizedBox(width: 5)),
                           TextSpan(
                             text: 'Terms of Use',
                             style: const TextStyle(
@@ -91,10 +89,10 @@ class Splash extends StatelessWidget {
                               decoration: TextDecoration.underline,
                             ),
                             recognizer:
-                              TapGestureRecognizer()
-                                ..onTap = () {
-                                  print('Terms of Use tapped');
-                                },
+                                TapGestureRecognizer()
+                                  ..onTap = () {
+                                    print('Terms of Use tapped');
+                                  },
                           ),
                         ],
                       ),

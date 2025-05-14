@@ -7,12 +7,22 @@ class CardPlan extends StatelessWidget {
     required this.description,
     required this.price,
     this.discount = '',
+    this.isHighlight = false,
   });
 
   final String title;
   final String description;
   final String price;
   final String discount;
+  final bool isHighlight;
+
+  Color getContainerColor() {
+    return isHighlight ? const Color(0xFF202020) : Colors.white;
+  }
+
+  Color getTextColor() {
+    return isHighlight ? Colors.white : Colors.black;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +31,13 @@ class CardPlan extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Color(0xFF202020),
+            color: getContainerColor(),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Row(
             children: [
-              Container(
-                alignment: Alignment.center,
-                child: const Icon(Icons.check_circle, color: Colors.white),
-              ),
+              // Icon(Icons.check_circle, color: getTextColor()),
+              Radio(value: 'lifetime', groupValue: 'groupValue', onChanged: (String? value) => {}),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -38,7 +46,7 @@ class CardPlan extends StatelessWidget {
                     Text(
                       title,
                       style: TextStyle(
-                        color: Color(0xFFFFFFFF),
+                        color: getTextColor(),
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                       ),
@@ -46,15 +54,15 @@ class CardPlan extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       description,
-                      style: TextStyle(color: Color(0xFFEAEAEA)),
+                      style: TextStyle(color: getTextColor().withAlpha((0.9 * 255).toInt())),
                     ),
                   ],
                 ),
               ),
               Text(
                 price,
-                style: const TextStyle(
-                  color: Color(0xFFFFFFFF),
+                style: TextStyle(
+                  color: getTextColor(),
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
                 ),

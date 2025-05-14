@@ -13,6 +13,7 @@ class PricingPlans extends StatelessWidget {
           title: 'Lifetime',
           description: 'Pay once, use forever.',
           price: r'$99.99',
+          isHighlight: true,
         ),
         SizedBox(height: 12),
         CardPlan(
