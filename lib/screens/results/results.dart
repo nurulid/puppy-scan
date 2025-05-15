@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:puppy_scan/screens/results/share_popup.dart';
 import 'package:puppy_scan/shared/btn_black.dart';
 import 'package:puppy_scan/shared/btn_white.dart';
 import 'package:puppy_scan/shared/fullscreen_bg.dart';
 import 'package:puppy_scan/shared/image_comparison.dart';
 import 'package:puppy_scan/shared/logo.dart';
-import 'package:before_after/before_after.dart';
 
-class SliderSc extends StatefulWidget {
-  const SliderSc({super.key});
-
-  @override
-  State<SliderSc> createState() => _SliderScState();
-}
-
-class _SliderScState extends State<SliderSc> {
-  double sliderValue = 0.5; // Initial slider position (0.0 to 1.0)
+class Results extends StatelessWidget {
+  const Results({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +24,12 @@ class _SliderScState extends State<SliderSc> {
                   const Logo(),
                   const SizedBox(height: 24),
                   const Text(
-                    'Turn Your Pup Into a Puppy',
+                    'Your Pup’s Glow-Up Is Ready!',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
                   const Text(
-                    'See the glow-up magic in action',
+                    'Made by Pupify ✨',
                     style: TextStyle(color: Color(0xFF5B5B5B)),
                   ),
 
@@ -72,46 +65,50 @@ class _SliderScState extends State<SliderSc> {
                     ],
                   ),
 
-                  Padding(
-                    padding: EdgeInsets.all(10),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     child: ImageComparison(
                       imageBefore: 'assets/puppy_before.png',
                       imageAfter: 'assets/puppy_after.png',
-                    )
+                    ),
                   ),
 
                   const SizedBox(height: 24),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
+                    child: Row(
                       children: [
-                        BtnBlack(
-                          onPressed: () => print('Pressed'),
-                          child: const Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.apple, size: 24),
-                              SizedBox(width: 12),
-                              Text(
-                                'Continue with Apple',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ],
+                        Expanded(
+                          child: BtnWhite(
+                            onPressed: () => print('Pressed'),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.asset('assets/icon_rescan.png'),
+                                const SizedBox(width: 4),
+                                const Text(
+                                  'Re-Scan',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        const SizedBox(height: 12),
-                        BtnWhite(
-                          onPressed: () => print('Pressed'),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset('assets/google_icon.png', width: 24),
-                              const SizedBox(width: 12),
-                              const Text(
-                                'Continue with Google',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ],
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: BtnBlack(
+                            onPressed: () => ShareBottomSheet.show(context),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.asset('assets/icon_share.png', width: 20),
+                                SizedBox(width: 4),
+                                Text('Share', style: TextStyle(fontSize: 16)),
+                              ],
+                            ),
                           ),
                         ),
                       ],
