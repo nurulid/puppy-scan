@@ -4,7 +4,6 @@ import 'package:puppy_scan/shared/btn_white.dart';
 import 'package:puppy_scan/shared/fullscreen_bg.dart';
 import 'package:puppy_scan/shared/image_comparison.dart';
 import 'package:puppy_scan/shared/logo.dart';
-import 'package:before_after/before_after.dart';
 
 class SliderSc extends StatefulWidget {
   const SliderSc({super.key});
@@ -41,36 +40,6 @@ class _SliderScState extends State<SliderSc> {
                   ),
 
                   const SizedBox(height: 24),
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          'Before',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      Expanded(child: SizedBox()),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text('After'),
-                      ),
-                    ],
-                  ),
 
                   Padding(
                     padding: EdgeInsets.all(10),

@@ -34,36 +34,6 @@ class Results extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 24),
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          'Before',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      Expanded(child: SizedBox()),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text('After'),
-                      ),
-                    ],
-                  ),
 
                   Container(
                     decoration: BoxDecoration(
@@ -76,7 +46,7 @@ class Results extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 54),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
