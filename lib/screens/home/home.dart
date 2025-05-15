@@ -23,6 +23,7 @@ class Home extends StatelessWidget {
                   const Logo(),
                   const SizedBox(height: 24),
                   DottedBorder(
+                    borderType: BorderType.RRect,
                     radius: Radius.circular(20),
                     color: Colors.white,
                     dashPattern: [4],
@@ -47,7 +48,7 @@ class Home extends StatelessWidget {
                                 SizedBox(height: 8),
                                 Text(
                                   'Snap a fresh pic or upload an old one',
-                                  style: TextStyle(color: Colors.grey),
+                                  style: TextStyle(color: Color(0xFF5B5B5B)),
                                 ),
                               ],
                             ),
@@ -60,7 +61,10 @@ class Home extends StatelessWidget {
                               children: [
                                 Icon(Icons.camera_alt_outlined, size: 24),
                                 SizedBox(width: 12),
-                                Text('Take Photo'),
+                                Text(
+                                  'Take Photo',
+                                  style: TextStyle(fontSize: 16),
+                                ),
                               ],
                             ),
                           ),
@@ -72,8 +76,43 @@ class Home extends StatelessWidget {
                               children: [
                                 Icon(Icons.cloud_upload_outlined, size: 24),
                                 SizedBox(width: 12),
-                                Text('Upload Photo'),
+                                Text(
+                                  'Upload Photo',
+                                  style: TextStyle(fontSize: 16),
+                                ),
                               ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 36, 0, 16),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Past Scans',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height * 0.4,
+                    ),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Image.asset('assets/puppy_sad.png'),
+                          const Text(
+                            'It’s a little lonely here...',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color(0xFF797979),
                             ),
                           ),
                         ],

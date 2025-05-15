@@ -107,7 +107,10 @@ class _SliderScState extends State<SliderSc> {
                             children: [
                               Icon(Icons.apple, size: 24),
                               SizedBox(width: 12),
-                              Text('Continue with Apple'),
+                              Text(
+                                'Continue with Apple',
+                                style: TextStyle(fontSize: 16),
+                              ),
                             ],
                           ),
                         ),
@@ -119,7 +122,10 @@ class _SliderScState extends State<SliderSc> {
                             children: [
                               Image.asset('assets/google_icon.png', width: 24),
                               const SizedBox(width: 12),
-                              const Text('Continue with Google'),
+                              const Text(
+                                'Continue with Google',
+                                style: TextStyle(fontSize: 16),
+                              ),
                             ],
                           ),
                         ),

@@ -72,6 +72,7 @@ flutter:
     - assets/puppy_before.png
     - assets/puppy_after.png
     - assets/thumb.png
+    - assets/puppy_sad.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
