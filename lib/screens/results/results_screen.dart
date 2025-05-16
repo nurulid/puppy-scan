@@ -6,9 +6,16 @@ import 'package:puppy_scan/shared/fullscreen_bg.dart';
 import 'package:puppy_scan/shared/image_comparison.dart';
 import 'package:puppy_scan/shared/logo.dart';
 
-class ResultsScreen extends StatelessWidget {
-  const ResultsScreen({super.key});
+class ResultsScreen extends StatefulWidget {
+  final String? imagePath;
 
+  const ResultsScreen({super.key, this.imagePath});
+
+  @override
+  State<ResultsScreen> createState() => _ResultsScreenState();
+}
+
+class _ResultsScreenState extends State<ResultsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +75,7 @@ class ResultsScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  const SizedBox(height: 170),
+                  const SizedBox(height: 140),
                   const Text(
                     'Your Pup’s Glow-Up Is Ready!',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),

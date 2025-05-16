@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:puppy_scan/screens/home/scanning_screen.dart';
 import 'package:puppy_scan/screens/results/results_screen.dart';
 import 'package:puppy_scan/shared/btn_black.dart';
 import 'package:puppy_scan/shared/btn_white.dart';
@@ -17,29 +18,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  File? _image;
   final ImagePicker _picker = ImagePicker();
 
-  // Function to open camera
+  // Function to open camera and navigate to next screen
   Future<void> _openCamera() async {
     try {
       final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
 
       if (photo != null) {
-        setState(() {
-          _image = File(photo.path);
-        });
-        print('Image path: ${photo.path}');
+        // Navigate to the next screen with the image path
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ScanningScreen(imagePath: photo.path),
+          ),
+        );
       }
     } catch (e) {
       print('Error picking image: $e');
+      // Optionally show an error message to the user
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Failed to capture image: $e')));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true, // Background extends behind AppBar
+      extendBodyBehindAppBar: true,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Padding(
@@ -53,7 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-
       body: Stack(
         children: [
           const FullscreenBg(),
@@ -115,7 +121,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ResultsScreen(),
+                                  builder:
+                                      (context) => ResultsScreen(),
                                 ),
                               );
                             },
@@ -160,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Image.asset('assets/puppy_sad.png'),
                           const Text(
-                            'It’s a little lonely here...',
+                            "It's a little lonely here...",
                             style: TextStyle(
                               fontSize: 16,
                               color: Color(0xFF797979),
