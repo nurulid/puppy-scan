@@ -17,6 +17,8 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _logoTextOpacity;
   late Animation<double> _buttonOpacity;
   late Animation<double> _descOpacity;
+  bool _isLoading = false;
+  double _progressValue = 0.0;
 
   @override
   void initState() {
@@ -147,6 +149,7 @@ class _SplashScreenState extends State<SplashScreen>
                             shape: BoxShape.circle,
                           ),
                         ),
+
                         Container(
                           width: 160,
                           height: 160,
@@ -158,29 +161,73 @@ class _SplashScreenState extends State<SplashScreen>
                             ),
                             shape: BoxShape.circle,
                           ),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SliderScreen(),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              // Loading indicator
+                              if (_isLoading)
+                                SizedBox(
+                                  width: 145,
+                                  height: 145,
+                                  child: CircularProgressIndicator(
+                                    value: _progressValue,
+                                    strokeWidth: 4,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.black,
+                                    ),
+                                    backgroundColor: Colors.transparent,
+                                  ),
                                 ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shadowColor: Colors.transparent,
-                              fixedSize: Size(160, 160),
-                              shape: CircleBorder(),
-                            ),
-                            child: Text(
-                              'Get Started',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+
+                              ElevatedButton(
+                                onPressed: () async {
+                                  if (_isLoading) return;
+
+                                  setState(() {
+                                    _isLoading = true;
+                                    _progressValue = 0.0;
+                                  });
+
+                                  // Simulate loading
+                                  const totalDuration = 2000;
+                                  const interval = 50;
+                                  final steps = totalDuration ~/ interval;
+
+                                  for (int i = 0; i <= steps; i++) {
+                                    await Future.delayed(
+                                      Duration(milliseconds: interval),
+                                    );
+                                    if (!mounted) return;
+                                    setState(() {
+                                      _progressValue = (i / steps);
+                                    });
+                                  }
+
+                                  if (mounted) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SliderScreen(),
+                                      ),
+                                    );
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  shadowColor: Colors.transparent,
+                                  fixedSize: Size(160, 160),
+                                  shape: CircleBorder(),
+                                ),
+                                child: Text(
+                                  'Get Started',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ],
