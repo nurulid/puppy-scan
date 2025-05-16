@@ -1,9 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:puppy_scan/screens/slider/slider_screen.dart';
 import 'package:puppy_scan/shared/fullscreen_bg.dart';
 
-class Splash extends StatelessWidget {
-  const Splash({super.key});
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +71,14 @@ class Splash extends StatelessWidget {
                           shape: BoxShape.circle, // Forces a perfect circle
                         ),
                         child: ElevatedButton(
-                          onPressed: () => print('Get Started pressed'),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SliderScreen(),
+                              ),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             shadowColor: Colors.transparent,

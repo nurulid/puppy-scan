@@ -23,7 +23,7 @@ class CardPlan extends StatelessWidget {
   final ValueChanged<String?> onChanged;
 
   Color getContainerColor() {
-    return isHighlight ? const Color(0xFF202020) : Colors.white;
+    return isHighlight ? const Color(0xFF202020) : Color(0xFFF5F5F5);
   }
 
   Color getTextColor() {

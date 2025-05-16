@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:puppy_scan/screens/results/results_screen.dart';
 import 'package:puppy_scan/shared/btn_black.dart';
 import 'package:puppy_scan/shared/btn_white.dart';
 import 'package:puppy_scan/shared/fullscreen_bg.dart';
@@ -8,14 +9,14 @@ import 'package:puppy_scan/shared/logo.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeScreenState extends State<HomeScreen> {
   File? _image;
   final ImagePicker _picker = ImagePicker();
 
@@ -38,6 +39,21 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true, // Background extends behind AppBar
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: AppBar(
+            automaticallyImplyLeading: false,
+            title: Logo(),
+            centerTitle: true,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
+        ),
+      ),
+
       body: Stack(
         children: [
           const FullscreenBg(),
@@ -46,9 +62,7 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  const SizedBox(height: 50),
-                  const Logo(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 140),
                   DottedBorder(
                     borderType: BorderType.RRect,
                     radius: Radius.circular(20),
@@ -97,7 +111,14 @@ class _HomeState extends State<Home> {
                           ),
                           SizedBox(height: 12),
                           BtnWhite(
-                            onPressed: () => print('Pressed'),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ResultsScreen(),
+                                ),
+                              );
+                            },
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [

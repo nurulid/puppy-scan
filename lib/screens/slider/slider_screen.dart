@@ -1,23 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:puppy_scan/screens/paywall/paywall_screen.dart';
 import 'package:puppy_scan/shared/btn_black.dart';
 import 'package:puppy_scan/shared/btn_white.dart';
 import 'package:puppy_scan/shared/fullscreen_bg.dart';
 import 'package:puppy_scan/shared/image_comparison.dart';
 import 'package:puppy_scan/shared/logo.dart';
 
-class SliderSc extends StatefulWidget {
-  const SliderSc({super.key});
+class SliderScreen extends StatefulWidget {
+  const SliderScreen({super.key});
 
   @override
-  State<SliderSc> createState() => _SliderScState();
+  State<SliderScreen> createState() => _SliderScreenState();
 }
 
-class _SliderScState extends State<SliderSc> {
-  double sliderValue = 0.5; // Initial slider position (0.0 to 1.0)
-
+class _SliderScreenState extends State<SliderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true, // Background extends behind AppBar
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: AppBar(
+            automaticallyImplyLeading: false,
+            title: Logo(),
+            centerTitle: true,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
+        ),
+      ),
+
       body: Stack(
         children: [
           const FullscreenBg(),
@@ -26,9 +40,7 @@ class _SliderScState extends State<SliderSc> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  const SizedBox(height: 70),
-                  const Logo(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 140),
                   const Text(
                     'Turn Your Pup Into a Puppy',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -46,7 +58,7 @@ class _SliderScState extends State<SliderSc> {
                     child: ImageComparison(
                       imageBefore: 'assets/puppy_before.png',
                       imageAfter: 'assets/puppy_after.png',
-                    )
+                    ),
                   ),
 
                   const SizedBox(height: 24),
@@ -55,7 +67,14 @@ class _SliderScState extends State<SliderSc> {
                     child: Column(
                       children: [
                         BtnBlack(
-                          onPressed: () => print('Pressed'),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PaywallScreen(),
+                              ),
+                            );
+                          },
                           child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -70,7 +89,14 @@ class _SliderScState extends State<SliderSc> {
                         ),
                         const SizedBox(height: 12),
                         BtnWhite(
-                          onPressed: () => print('Pressed'),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PaywallScreen(),
+                              ),
+                            );
+                          },
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:puppy_scan/screens/home/home.dart';
+import 'package:puppy_scan/screens/home/home_screen.dart';
 import 'package:puppy_scan/screens/paywall/card_plan.dart';
 import 'package:puppy_scan/shared/btn_gradient.dart';
 
@@ -50,7 +50,7 @@ class _PricingPlansState extends State<PricingPlans> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Home()),
+              MaterialPageRoute(builder: (context) => HomeScreen()),
             );
           },
           child: const Text(

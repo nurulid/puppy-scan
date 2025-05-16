@@ -6,12 +6,60 @@ import 'package:puppy_scan/shared/fullscreen_bg.dart';
 import 'package:puppy_scan/shared/image_comparison.dart';
 import 'package:puppy_scan/shared/logo.dart';
 
-class Results extends StatelessWidget {
-  const Results({super.key});
+class ResultsScreen extends StatelessWidget {
+  const ResultsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true, // Background extends behind AppBar
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: AppBar(
+            leading: Container(
+              margin: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white54,
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.close,
+                  size: 20,
+                  color: Color(0xFF0E0E0E),
+                ),
+                onPressed: () => Navigator.pop(context),
+                padding: EdgeInsets.zero,
+                splashRadius: 20,
+              ),
+            ),
+            title: Logo(),
+            centerTitle: true,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            actions: [
+              Container(
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white54,
+                  shape: BoxShape.circle,
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.download),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Download clicked!')),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+
       body: Stack(
         children: [
           const FullscreenBg(),
@@ -20,9 +68,7 @@ class Results extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  const SizedBox(height: 70),
-                  const Logo(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 170),
                   const Text(
                     'Your Pup’s Glow-Up Is Ready!',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),

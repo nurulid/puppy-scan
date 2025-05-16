@@ -7,27 +7,25 @@ class Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-      child: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              "assets/puppy_logo.png",
-              fit: BoxFit.contain,
-              width: 28,
-              height: 28,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(
+            "assets/puppy_logo.png",
+            fit: BoxFit.contain,
+            width: 28,
+            height: 28,
+          ),
+          const SizedBox(width: 12),
+          const Text(
+            "Puppy Scan",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
             ),
-            const SizedBox(width: 12),
-            const Text(
-              "Puppy Scan",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
