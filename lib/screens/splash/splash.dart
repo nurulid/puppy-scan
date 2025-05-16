@@ -43,32 +43,57 @@ class Splash extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 32),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: ElevatedButton(
-                      onPressed: () => print('Get Started pressed'),
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(160, 160),
-                        shape: const CircleBorder(),
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        width: 220,
+                        height: 220,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/border_gradient.png'),
+                            fit: BoxFit.cover,
+                          ),
+                          shape: BoxShape.circle,
+                        ),
                       ),
-                      child: Center(
-                        child: Text(
-                          'Get Started',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                      Container(
+                        width: 160,
+                        height: 160,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          image: DecorationImage(
+                            image: AssetImage('assets/bg_gradient.png'),
+
+                            fit: BoxFit.contain,
+                          ),
+                          shape: BoxShape.circle, // Forces a perfect circle
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () => print('Get Started pressed'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            shadowColor: Colors.transparent,
+                            fixedSize: Size(160, 160),
+                            shape: CircleBorder(),
+                          ),
+                          child: Text(
+                            'Get Started',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
+
+                  SizedBox(height: 32),
                   Container(
-                    padding: const EdgeInsets.fromLTRB(100, 20, 100, 20),
-                    margin: const EdgeInsets.only(bottom: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 100),
+                    margin: const EdgeInsets.only(bottom: 50),
                     child: RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(

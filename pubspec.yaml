@@ -85,6 +85,8 @@ flutter:
     - assets/share/whatsapp.svg
     - assets/scan_result.jpg
     - assets/svg/icon_upload.svg
+    - assets/bg_gradient.png
+    - assets/border_gradient.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
