@@ -3,8 +3,68 @@ import 'package:flutter/material.dart';
 import 'package:puppy_scan/screens/slider/slider_screen.dart';
 import 'package:puppy_scan/shared/fullscreen_bg.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _logoImageOpacity;
+  late Animation<double> _logoTextOpacity;
+  late Animation<double> _buttonOpacity;
+  late Animation<double> _descOpacity;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 4500),
+    );
+
+    // Staggered animations
+    _logoImageOpacity = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0, 0.25, curve: Curves.easeIn),
+      ),
+    );
+
+    _logoTextOpacity = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.25, 0.5, curve: Curves.easeIn),
+      ),
+    );
+
+    _buttonOpacity = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.75, 1, curve: Curves.easeIn),
+      ),
+    );
+
+    _descOpacity = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.75, 1, curve: Curves.easeIn),
+      ),
+    );
+
+    // Start the animation when widget is built
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,23 +73,43 @@ class SplashScreen extends StatelessWidget {
         children: [
           const FullscreenBg(),
 
+          // LOGO
           Center(
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(
-                  "assets/puppy_logo.png",
-                  fit: BoxFit.contain,
-                  width: 40,
-                  height: 40,
+                AnimatedBuilder(
+                  animation: _logoImageOpacity,
+                  builder: (context, child) {
+                    return Opacity(
+                      opacity: _logoImageOpacity.value,
+                      child: child,
+                    );
+                  },
+                  child: Image.asset(
+                    "assets/puppy_logo.png",
+                    fit: BoxFit.contain,
+                    width: 40,
+                    height: 40,
+                  ),
                 ),
-                SizedBox(width: 12),
-                Text(
-                  "Puppy Scan",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                const SizedBox(width: 12),
+
+                AnimatedBuilder(
+                  animation: _logoTextOpacity,
+                  builder: (context, child) {
+                    return Opacity(
+                      opacity: _logoTextOpacity.value,
+                      child: child,
+                    );
+                  },
+                  child: Text(
+                    'Puppy Scan',
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ],
@@ -44,90 +124,106 @@ class SplashScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        width: 220,
-                        height: 220,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/border_gradient.png'),
-                            fit: BoxFit.cover,
+                  // GET STARTED
+                  AnimatedBuilder(
+                    animation: _buttonOpacity,
+                    builder: (context, child) {
+                      return Opacity(
+                        opacity: _buttonOpacity.value,
+                        child: child,
+                      );
+                    },
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: 220,
+                          height: 220,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('assets/border_gradient.png'),
+                              fit: BoxFit.cover,
+                            ),
+                            shape: BoxShape.circle,
                           ),
-                          shape: BoxShape.circle,
                         ),
-                      ),
-                      Container(
-                        width: 160,
-                        height: 160,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          image: DecorationImage(
-                            image: AssetImage('assets/bg_gradient.png'),
-
-                            fit: BoxFit.contain,
+                        Container(
+                          width: 160,
+                          height: 160,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            image: DecorationImage(
+                              image: AssetImage('assets/bg_gradient.png'),
+                              fit: BoxFit.contain,
+                            ),
+                            shape: BoxShape.circle,
                           ),
-                          shape: BoxShape.circle, // Forces a perfect circle
-                        ),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SliderScreen(),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SliderScreen(),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              shadowColor: Colors.transparent,
+                              fixedSize: Size(160, 160),
+                              shape: CircleBorder(),
+                            ),
+                            child: Text(
+                              'Get Started',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            shadowColor: Colors.transparent,
-                            fixedSize: Size(160, 160),
-                            shape: CircleBorder(),
-                          ),
-                          child: Text(
-                            'Get Started',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
 
                   SizedBox(height: 32),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 100),
-                    margin: const EdgeInsets.only(bottom: 50),
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                        ),
-                        children: [
-                          const TextSpan(
-                            text: "By tapping 'Get Started' you agree to our",
+                  // DESC
+                  AnimatedBuilder(
+                    animation: _descOpacity,
+                    builder: (context, child) {
+                      return Opacity(opacity: _descOpacity.value, child: child);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 100),
+                      margin: const EdgeInsets.only(bottom: 50),
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
                           ),
-                          WidgetSpan(child: SizedBox(width: 5)),
-                          TextSpan(
-                            text: 'Terms of Use',
-                            style: const TextStyle(
-                              color: Color(0xFF5B5B5B),
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline,
+                          children: [
+                            const TextSpan(
+                              text: "By tapping 'Get Started' you agree to our",
                             ),
-                            recognizer:
-                                TapGestureRecognizer()
-                                  ..onTap = () {
-                                    print('Terms of Use tapped');
-                                  },
-                          ),
-                        ],
+                            WidgetSpan(child: SizedBox(width: 5)),
+                            TextSpan(
+                              text: 'Terms of Use',
+                              style: const TextStyle(
+                                color: Color(0xFF5B5B5B),
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                              ),
+                              recognizer:
+                                  TapGestureRecognizer()
+                                    ..onTap = () {
+                                      print('Terms of Use tapped');
+                                    },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
