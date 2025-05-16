@@ -37,6 +37,7 @@ dependencies:
   dotted_border: ^2.1.0
   before_after: ^3.2.0
   flutter_svg: ^2.1.0
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +84,7 @@ flutter:
     - assets/share/instagram.svg
     - assets/share/whatsapp.svg
     - assets/scan_result.jpg
+    - assets/svg/icon_upload.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

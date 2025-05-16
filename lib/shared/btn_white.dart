@@ -8,16 +8,21 @@ class BtnWhite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      minWidth: double.infinity, // Full width
-      height: 56, // Standard height
-      color: Colors.white,
-      textColor: Colors.black,
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-      padding: const EdgeInsets.all(16),
-      onPressed: onPressed,
-      child: child,
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        ),
+        child: child,
+      ),
     );
   }
 }

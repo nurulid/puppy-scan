@@ -1,12 +1,39 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:puppy_scan/shared/btn_black.dart';
 import 'package:puppy_scan/shared/btn_white.dart';
 import 'package:puppy_scan/shared/fullscreen_bg.dart';
 import 'package:puppy_scan/shared/logo.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  File? _image;
+  final ImagePicker _picker = ImagePicker();
+
+  // Function to open camera
+  Future<void> _openCamera() async {
+    try {
+      final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+
+      if (photo != null) {
+        setState(() {
+          _image = File(photo.path);
+        });
+        print('Image path: ${photo.path}');
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +82,12 @@ class Home extends StatelessWidget {
                           ),
                           SizedBox(height: 24),
                           BtnBlack(
-                            onPressed: () => print('Pressed'),
+                            onPressed: _openCamera,
                             child: const Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Icon(Icons.camera_alt_outlined, size: 24),
-                                SizedBox(width: 12),
+                                SizedBox(width: 6),
                                 Text(
                                   'Take Photo',
                                   style: TextStyle(fontSize: 16),
@@ -71,11 +98,14 @@ class Home extends StatelessWidget {
                           SizedBox(height: 12),
                           BtnWhite(
                             onPressed: () => print('Pressed'),
-                            child: const Row(
+                            child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.cloud_upload_outlined, size: 24),
-                                SizedBox(width: 12),
+                                SvgPicture.asset(
+                                  'assets/svg/icon_upload.svg',
+                                  width: 20,
+                                ),
+                                SizedBox(width: 6),
                                 Text(
                                   'Upload Photo',
                                   style: TextStyle(fontSize: 16),
