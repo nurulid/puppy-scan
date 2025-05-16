@@ -5,6 +5,7 @@ import 'package:puppy_scan/shared/btn_white.dart';
 import 'package:puppy_scan/shared/fullscreen_bg.dart';
 import 'package:puppy_scan/shared/image_comparison.dart';
 import 'package:puppy_scan/shared/logo.dart';
+import 'dart:io';
 
 class ResultsScreen extends StatefulWidget {
   final String? imagePath;
@@ -94,7 +95,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: ImageComparison(
-                      imageBefore: 'assets/puppy_before.png',
+                      imageBefore: File(widget.imagePath!),
                       imageAfter: 'assets/puppy_after.png',
                     ),
                   ),

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:before_after/before_after.dart';
+import 'dart:io';
 
 class ImageComparison extends StatefulWidget {
   const ImageComparison({
     super.key,
     required this.imageBefore,
     required this.imageAfter,
+    this.isStatic = false,
   });
 
-  final String imageBefore;
-  final String imageAfter;
+  final dynamic imageBefore;
+  final dynamic imageAfter;
+  final bool isStatic;
 
   @override
   State<ImageComparison> createState() => _ImageComparison();
@@ -18,12 +21,22 @@ class ImageComparison extends StatefulWidget {
 class _ImageComparison extends State<ImageComparison> {
   double sliderValue = 0.5;
 
+  Widget _buildImage(dynamic imageSource) {
+    if (imageSource is String) {
+      return Image.asset(imageSource);
+    } else if (imageSource is File) {
+      return Image.file(imageSource);
+    } else {
+      return Container();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 16),
+          padding: EdgeInsets.only(top: 16, bottom: 16),
           child: BeforeAfter(
             trackColor: Colors.white,
             trackWidth: 6,
@@ -38,8 +51,8 @@ class _ImageComparison extends State<ImageComparison> {
               ),
             ),
             value: sliderValue,
-            before: Image.asset(widget.imageBefore),
-            after: Image.asset(widget.imageAfter),
+            before: _buildImage(widget.imageBefore),
+            after: _buildImage(widget.imageAfter),
             onValueChanged: (value) {
               setState(() => sliderValue = value);
             },

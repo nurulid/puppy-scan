@@ -117,15 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           SizedBox(height: 12),
                           BtnWhite(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder:
-                                      (context) => ResultsScreen(),
-                                ),
-                              );
-                            },
+                            onPressed: () {},
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
