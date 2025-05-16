@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:puppy_scan/screens/paywall/card_plan.dart';
 import 'package:puppy_scan/shared/btn_white.dart';
 
-class PricingPlans extends StatelessWidget {
+class PricingPlans extends StatefulWidget {
   const PricingPlans({super.key});
+
+  @override
+  State<PricingPlans> createState() => _PricingPlansState();
+}
+
+class _PricingPlansState extends State<PricingPlans> {
+  String? selectedPlan = 'lifetime';
 
   @override
   Widget build(BuildContext context) {
@@ -13,18 +20,34 @@ class PricingPlans extends StatelessWidget {
           title: 'Lifetime',
           description: 'Pay once, use forever.',
           price: r'$99.99',
-          isHighlight: true,
+          discount: '50%',
+          isHighlight: selectedPlan == 'lifetime',
+          value: 'lifetime',
+          groupValue: selectedPlan,
+          onChanged: (value) {
+            setState(() {
+              selectedPlan = value;
+            });
+          },
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         CardPlan(
           title: 'Monthly',
           description: 'Billed monthly.',
           price: r'$1.99',
+          isHighlight: selectedPlan == 'monthly',
+          value: 'monthly',
+          groupValue: selectedPlan,
+          onChanged: (value) {
+            setState(() {
+              selectedPlan = value;
+            });
+          },
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         BtnWhite(
-          onPressed: () => print('Pressed'),
-          child: Text('Unlock Pupify'),
+          onPressed: () => print('Pressed: $selectedPlan'),
+          child: const Text('Unlock Pupify'),
         ),
       ],
     );
