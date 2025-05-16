@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:puppy_scan/screens/home/home.dart';
 import 'package:puppy_scan/screens/paywall/card_plan.dart';
-import 'package:puppy_scan/shared/btn_white.dart';
+import 'package:puppy_scan/shared/btn_gradient.dart';
 
 class PricingPlans extends StatefulWidget {
   const PricingPlans({super.key});
@@ -45,9 +46,17 @@ class _PricingPlansState extends State<PricingPlans> {
           },
         ),
         const SizedBox(height: 16),
-        BtnWhite(
-          onPressed: () => print('Pressed: $selectedPlan'),
-          child: const Text('Unlock Pupify'),
+        BtnGradient(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Home()),
+            );
+          },
+          child: const Text(
+            'Unlock Pupify',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
         ),
       ],
     );
