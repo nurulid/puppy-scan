@@ -38,6 +38,8 @@ dependencies:
   before_after: ^3.2.0
   flutter_svg: ^2.1.0
   image_picker: ^1.1.2
+  http: ^1.1.0
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -89,6 +91,7 @@ flutter:
     - assets/bg_gradient_horizontal.png
     - assets/border_gradient.png
     - assets/border_gradient_horizontal.png
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
