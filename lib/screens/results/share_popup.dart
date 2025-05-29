@@ -1,13 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:puppy_scan/shared/logo.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ShareBottomSheet {
-  static void show(BuildContext context) {
+  static void show(BuildContext context, {String? resultImage}) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (context) => _ShareBottomSheetContent(),
+      builder: (context) => ShareBottomSheetContent(resultImage: resultImage),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
@@ -16,7 +18,17 @@ class ShareBottomSheet {
   }
 }
 
-class _ShareBottomSheetContent extends StatelessWidget {
+class ShareBottomSheetContent extends StatefulWidget {
+  final String? resultImage;
+
+  const ShareBottomSheetContent({super.key, this.resultImage});
+
+  @override
+  State<ShareBottomSheetContent> createState() =>
+      _ShareBottomSheetContentState();
+}
+
+class _ShareBottomSheetContentState extends State<ShareBottomSheetContent> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -33,14 +45,39 @@ class _ShareBottomSheetContent extends StatelessWidget {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 16),
-              Container(
-                padding: EdgeInsets.all(5),
-                width: 170,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Image.asset('assets/scan_result.jpg'),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    width: 170,
+                    height: 213,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child:
+                        widget.resultImage != null
+                            ? widget.resultImage!.startsWith('http')
+                                ? Image.network(
+                                  widget.resultImage!,
+                                  fit: BoxFit.contain,
+                                )
+                                : Image.file(
+                                  File(widget.resultImage!),
+                                  fit: BoxFit.contain,
+                                )
+                            : Text('No image available'),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    right: 10,
+                    child: Text(
+                      'Made by Pupify',
+                      style: TextStyle(fontSize: 12, color: Colors.black),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 24),
               Container(

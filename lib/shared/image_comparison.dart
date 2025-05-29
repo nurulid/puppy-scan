@@ -23,9 +23,33 @@ class _ImageComparison extends State<ImageComparison> {
 
   Widget _buildImage(dynamic imageSource) {
     if (imageSource is String) {
-      return Image.asset(imageSource);
+      // Check if it's a network image URL
+      if (imageSource.startsWith('http://') ||
+          imageSource.startsWith('https://')) {
+        return Image.network(
+          imageSource,
+          fit: BoxFit.contain,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Container(
+              color: Colors.grey[300],
+              child: Center(
+                child: CircularProgressIndicator(
+                  value:
+                      loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                ),
+              ),
+            );
+          },
+        );
+      } else {
+        return Image.asset(imageSource, fit: BoxFit.contain);
+      }
     } else if (imageSource is File) {
-      return Image.file(imageSource);
+      return Image.file(imageSource, fit: BoxFit.contain);
     } else {
       return Container();
     }
