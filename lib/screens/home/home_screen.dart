@@ -2,13 +2,11 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:puppy_scan/screens/home/scanning_screen.dart';
-import 'package:puppy_scan/screens/results/results_screen.dart';
 import 'package:puppy_scan/shared/btn_black.dart';
 import 'package:puppy_scan/shared/btn_white.dart';
 import 'package:puppy_scan/shared/fullscreen_bg.dart';
 import 'package:puppy_scan/shared/logo.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,27 +18,46 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ImagePicker _picker = ImagePicker();
 
-  // Function to open camera and navigate to next screen
+  // handle open camera
   Future<void> _openCamera() async {
     try {
       final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
 
       if (photo != null) {
-        // Navigate to the next screen with the image path
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ScanningScreen(imagePath: photo.path),
-          ),
-        );
+        _navigateToScanningScreen(photo.path);
       }
     } catch (e) {
       print('Error picking image: $e');
-      // Optionally show an error message to the user
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Failed to capture image: $e')));
     }
+  }
+
+  // handle gallery image picking
+  Future<void> _pickGalleryImage() async {
+    try {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+      if (image != null) {
+        _navigateToScanningScreen(image.path);
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Failed to pick image: $e')));
+    }
+  }
+
+  // navigate to scanning screen
+  void _navigateToScanningScreen(String imagePath) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ScanningScreen(imagePath: imagePath),
+      ),
+    );
   }
 
   @override
@@ -117,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           SizedBox(height: 12),
                           BtnWhite(
-                            onPressed: () {},
+                            onPressed: _pickGalleryImage,
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [

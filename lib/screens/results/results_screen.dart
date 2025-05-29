@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:puppy_scan/screens/home/home_screen.dart';
+import 'package:puppy_scan/screens/home/scanning_screen.dart';
 import 'package:puppy_scan/screens/results/share_popup.dart';
 import 'package:puppy_scan/shared/btn_black.dart';
 import 'package:puppy_scan/shared/btn_white.dart';
@@ -9,18 +11,28 @@ import 'dart:io';
 
 class ResultsScreen extends StatefulWidget {
   final String? imagePath;
+  final String? processedImageUrl;
 
-  const ResultsScreen({super.key, this.imagePath});
+  const ResultsScreen({super.key, this.imagePath, this.processedImageUrl});
 
   @override
   State<ResultsScreen> createState() => _ResultsScreenState();
 }
 
 class _ResultsScreenState extends State<ResultsScreen> {
+  void _navigateToScanningScreen(String imagePath) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ScanningScreen(imagePath: imagePath),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true, // Background extends behind AppBar
+      extendBodyBehindAppBar: true,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Padding(
@@ -28,7 +40,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
           child: AppBar(
             leading: Container(
               margin: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white54,
                 shape: BoxShape.circle,
               ),
@@ -38,19 +50,25 @@ class _ResultsScreenState extends State<ResultsScreen> {
                   size: 20,
                   color: Color(0xFF0E0E0E),
                 ),
-                onPressed: () => Navigator.pop(context),
+                onPressed:
+                    () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                      ),
+                    },
                 padding: EdgeInsets.zero,
                 splashRadius: 20,
               ),
             ),
-            title: Logo(),
+            title: const Logo(),
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
             actions: [
               Container(
                 margin: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white54,
                   shape: BoxShape.circle,
                 ),
@@ -78,7 +96,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 children: [
                   const SizedBox(height: 140),
                   const Text(
-                    'Your Pup’s Glow-Up Is Ready!',
+                    "Your Pup's Glow-Up Is Ready!",
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
@@ -95,8 +113,12 @@ class _ResultsScreenState extends State<ResultsScreen> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: ImageComparison(
-                      imageBefore: File(widget.imagePath!),
-                      imageAfter: 'assets/puppy_after.png',
+                      imageBefore:
+                          widget.imagePath != null
+                              ? File(widget.imagePath!)
+                              : null,
+                      imageAfter:
+                          widget.processedImageUrl ?? 'assets/puppy_after.png',
                     ),
                   ),
 
@@ -107,7 +129,12 @@ class _ResultsScreenState extends State<ResultsScreen> {
                       children: [
                         Expanded(
                           child: BtnWhite(
-                            onPressed: () => print('Pressed'),
+                            onPressed:
+                                () => {
+                                  _navigateToScanningScreen(
+                                    File(widget.imagePath!).path,
+                                  ),
+                                },
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -124,7 +151,11 @@ class _ResultsScreenState extends State<ResultsScreen> {
                         const SizedBox(width: 12),
                         Expanded(
                           child: BtnBlack(
-                            onPressed: () => ShareBottomSheet.show(context),
+                            onPressed:
+                                () => ShareBottomSheet.show(
+                                  context,
+                                  resultImage: widget.processedImageUrl,
+                                ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
